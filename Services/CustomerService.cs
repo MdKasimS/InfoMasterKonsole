@@ -45,7 +45,8 @@ namespace InfoMasterKonsole.Services
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure("Failed to add customer: " + ex.Message);
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Failed to add customer due to an internal error. See logs for details.");
             }
         }
 
@@ -82,7 +83,8 @@ namespace InfoMasterKonsole.Services
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure("Failed to update customer: " + ex.Message);
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Failed to update customer due to an internal error. See logs for details.");
             }
         }
 
@@ -103,7 +105,8 @@ namespace InfoMasterKonsole.Services
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure("Failed to delete customer: " + ex.Message);
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Failed to delete customer due to an internal error. See logs for details.");
             }
         }
 

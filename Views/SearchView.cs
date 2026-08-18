@@ -54,7 +54,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error executing search: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("An error occurred while executing the search. See logs for details.");
             }
         }
 

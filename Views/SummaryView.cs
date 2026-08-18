@@ -59,7 +59,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error generating summary: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("An error occurred while generating the summary. See logs for details.");
             }
         }
     }

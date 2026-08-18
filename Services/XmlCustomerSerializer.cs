@@ -44,24 +44,29 @@ namespace InfoMasterKonsole.Services
             }
             catch (UnauthorizedAccessException ex)
             {
-                return ServiceResult.Failure($"Access denied writing file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Access denied writing file.");
             }
             catch (DirectoryNotFoundException ex)
             {
-                return ServiceResult.Failure($"Directory not found: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Directory not found.");
             }
             catch (IOException ex)
             {
-                return ServiceResult.Failure($"I/O error writing file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("I/O error writing file.");
             }
             catch (InvalidOperationException ex)
             {
                 // XmlSerializer can throw InvalidOperationException wrapping inner exception for serialization errors
-                return ServiceResult.Failure($"XML serialization error: {ex.InnerException?.Message ?? ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("XML serialization error.");
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure($"Unexpected error during XML serialization: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Unexpected error during XML serialization. See logs for details.");
             }
         }
 
@@ -97,20 +102,24 @@ namespace InfoMasterKonsole.Services
             }
             catch (UnauthorizedAccessException ex)
             {
-                return ServiceResult.Failure($"Access denied reading file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Access denied reading file.");
             }
             catch (IOException ex)
             {
-                return ServiceResult.Failure($"I/O error reading file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("I/O error reading file.");
             }
             catch (InvalidOperationException ex)
             {
                 // Malformed XML or type mismatch
-                return ServiceResult.Failure($"Invalid XML: {ex.InnerException?.Message ?? ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Invalid XML format.");
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure($"Unexpected error during XML deserialization: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Unexpected error during XML deserialization. See logs for details.");
             }
         }
     }

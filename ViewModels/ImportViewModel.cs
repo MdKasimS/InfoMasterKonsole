@@ -65,7 +65,8 @@ namespace InfoMasterKonsole.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    outcome.Rejected.Add(new RejectionRecord(c, new List<string> { "Unexpected error: " + ex.Message }));
+                    InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                    outcome.Rejected.Add(new RejectionRecord(c, new List<string> { "Unexpected error while importing this record. See logs for details." }));
                 }
             }
 

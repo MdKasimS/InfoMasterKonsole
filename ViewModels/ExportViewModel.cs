@@ -40,7 +40,8 @@ namespace InfoMasterKonsole.ViewModels
             }
             catch (Exception ex)
             {
-                outcome.Result = ServiceResult.Failure("Unexpected error during export: " + ex.Message);
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                outcome.Result = ServiceResult.Failure("Unexpected error during export. See logs for details.");
                 outcome.ExportedCount = 0;
             }
 

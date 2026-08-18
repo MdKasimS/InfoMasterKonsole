@@ -70,8 +70,8 @@ namespace InfoMasterKonsole.Views
                 }
                 catch (Exception ex)
                 {
-                    // Do not terminate app on unexpected exceptions; show friendly message.
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                    Console.WriteLine("An unexpected error occurred. See logs for details.");
                 }
             }
         }
@@ -97,7 +97,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding customer: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Error adding customer. See logs for details.");
             }
         }
 
@@ -110,7 +111,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving customers: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Error retrieving customers. See logs for details.");
             }
         }
 
@@ -150,7 +152,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating customer: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Error updating customer. See logs for details.");
             }
         }
 
@@ -198,7 +201,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting customer: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Error deleting customer. See logs for details.");
             }
         }
 
@@ -212,7 +216,8 @@ namespace InfoMasterKonsole.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error searching customers: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Error searching customers. See logs for details.");
             }
         }
 

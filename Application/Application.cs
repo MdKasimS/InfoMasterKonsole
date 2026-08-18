@@ -63,11 +63,22 @@ namespace InfoMasterKonsole.Application
             try
             {
                 var initializer = new DbInitializer();
-                initializer.Initialize();
+                var initResult = initializer.Initialize();
+                if (!initResult.IsSuccess)
+                {
+                    // Log and inform user with a friendly message
+                    Console.WriteLine("Warning: database initialization reported issues. Some operations may fail.");
+                    foreach (var e in initResult.Errors)
+                    {
+                        Console.WriteLine(" - " + e);
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                // Swallow initialization errors here; views/services will report problems if operations fail.
+                // Log unexpected initialization exception and continue; views will handle operational errors.
+                Exceptions.ExceptionLogger.Log(ex);
+                Console.WriteLine("Warning: unexpected error during database initialization. See logs for details.");
             }
 
             // Compose concrete instances (manual wiring, no DI container)

@@ -43,19 +43,23 @@ namespace InfoMasterKonsole.Services
             }
             catch (UnauthorizedAccessException ex)
             {
-                return ServiceResult.Failure($"Access denied writing file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Access denied writing file.");
             }
             catch (DirectoryNotFoundException ex)
             {
-                return ServiceResult.Failure($"Directory not found: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Directory not found.");
             }
             catch (IOException ex)
             {
-                return ServiceResult.Failure($"I/O error writing file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("I/O error writing file.");
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure($"Unexpected error during serialization: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Unexpected error during serialization. See logs for details.");
             }
         }
 
@@ -92,19 +96,23 @@ namespace InfoMasterKonsole.Services
             }
             catch (JsonException ex)
             {
-                return ServiceResult.Failure($"Invalid JSON: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Invalid JSON format.");
             }
             catch (UnauthorizedAccessException ex)
             {
-                return ServiceResult.Failure($"Access denied reading file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Access denied reading file.");
             }
             catch (IOException ex)
             {
-                return ServiceResult.Failure($"I/O error reading file: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("I/O error reading file.");
             }
             catch (Exception ex)
             {
-                return ServiceResult.Failure($"Unexpected error during deserialization: {ex.Message}");
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return ServiceResult.Failure("Unexpected error during deserialization. See logs for details.");
             }
         }
     }

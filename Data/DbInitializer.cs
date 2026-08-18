@@ -9,7 +9,7 @@ namespace InfoMasterKonsole.Data
     /// </summary>
     public class DbInitializer
     {
-        public void Initialize()
+        public InfoMasterKonsole.Services.ServiceResult Initialize()
         {
             // Ensure data folder exists; the DbContext will create the database file when needed.
             var baseDir = AppContext.BaseDirectory ?? Directory.GetCurrentDirectory();
@@ -26,10 +26,22 @@ namespace InfoMasterKonsole.Data
                 {
                     context.Database.EnsureCreated();
                 }
+                return InfoMasterKonsole.Services.ServiceResult.Success();
             }
-            catch (Exception)
+            catch (System.UnauthorizedAccessException ex)
             {
-                // Swallow initialization exceptions at this stage; callers should handle/log as needed.
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return InfoMasterKonsole.Services.ServiceResult.Failure("Access denied while creating database file.");
+            }
+            catch (IOException ex)
+            {
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return InfoMasterKonsole.Services.ServiceResult.Failure("I/O error while initializing database.");
+            }
+            catch (Exception ex)
+            {
+                InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
+                return InfoMasterKonsole.Services.ServiceResult.Failure("Unexpected error during database initialization.");
             }
         }
     }
