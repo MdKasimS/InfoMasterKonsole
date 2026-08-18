@@ -15,5 +15,6 @@ namespace InfoMasterKonsole.Repositories
         void Update(Customer customer);
         void Delete(string id);
         IEnumerable<Customer> Search(Func<Customer, bool> predicate);
+        bool Exists(string id);
     }
 }
