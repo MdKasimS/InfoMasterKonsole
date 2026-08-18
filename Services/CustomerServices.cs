@@ -19,7 +19,7 @@ public class CustomerService : ICustomerService
 
     public bool AddCustomer(Customer customer, out List<string> errors)
     {
-        if (!validator.Validate(customer, out errors))
+        if (!validator.Validate(customer, false, out errors))
         {
             return false;
         }
@@ -45,30 +45,14 @@ public class CustomerService : ICustomerService
 
     public bool UpdateCustomer(Customer customer, out List<string> errors)
     {
-        errors = new List<string>();
-
         if (!repository.Exists(customer.CustomerId))
         {
+            errors = new List<string>();
             errors.Add("Customer does not exist.");
             return false;
         }
 
-        if (string.IsNullOrWhiteSpace(customer.CustomerName))
-        {
-            errors.Add("Customer name cannot be empty.");
-        }
-
-        if (string.IsNullOrWhiteSpace(customer.EmailAddress))
-        {
-            errors.Add("Email address cannot be empty.");
-        }
-
-        if (customer.RegistrationDate > DateTime.Today)
-        {
-            errors.Add("Registration date cannot be in the future.");
-        }
-
-        if (errors.Count > 0)
+        if (!validator.Validate(customer, true, out errors))
         {
             return false;
         }
