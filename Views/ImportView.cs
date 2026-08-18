@@ -30,6 +30,7 @@ namespace InfoMasterKonsole.Views
                 Console.WriteLine("\nImport Customers");
                 Console.WriteLine("1) Import from JSON");
                 Console.WriteLine("2) Import from XML");
+                Console.WriteLine("3) Import multiple JSON files from folder");
                 Console.WriteLine("0) Back");
                 Console.Write("Select option: ");
                 var choice = Console.ReadLine();
@@ -43,6 +44,9 @@ namespace InfoMasterKonsole.Views
                         break;
                     case "2":
                         ImportXmlFlow();
+                        break;
+                    case "3":
+                        ImportMultipleJsonFlow();
                         break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
@@ -73,6 +77,18 @@ namespace InfoMasterKonsole.Views
             var vm = new ImportViewModel(_service, _xmlSerializer);
             var result = vm.Import(path);
             DisplayResult(result, path, "XML");
+        }
+
+        private void ImportMultipleJsonFlow()
+        {
+            var defaultFolder = GetDefaultFolder();
+            Console.Write($"Enter folder path containing JSON files (leave empty for '{defaultFolder}'): ");
+            var input = Console.ReadLine();
+            var folder = string.IsNullOrWhiteSpace(input) ? defaultFolder : input.Trim();
+
+            var vm = new ImportViewModel(_service, _jsonSerializer);
+            var result = vm.ImportMultipleJsonFolder(folder);
+            DisplayMultipleImportResult(result, folder);
         }
 
         private void DisplayResult(ImportResult result, string path, string format)
@@ -137,6 +153,73 @@ namespace InfoMasterKonsole.Views
                 try { Directory.CreateDirectory(dataDir); } catch { }
             }
             return Path.Combine(dataDir, fileName);
+        }
+
+        private string GetDefaultFolder()
+        {
+            var baseDir = AppContext.BaseDirectory ?? Directory.GetCurrentDirectory();
+            var dataDir = Path.Combine(baseDir, "data", "imports");
+            if (!Directory.Exists(dataDir))
+            {
+                try { Directory.CreateDirectory(dataDir); } catch { }
+            }
+            return dataDir;
+        }
+
+        private void DisplayMultipleImportResult(ViewModels.MultipleImportResult result, string folder)
+        {
+            if (result == null)
+            {
+                Console.WriteLine("Import failed: unknown error.");
+                return;
+            }
+
+            Console.WriteLine($"Import summary for folder '{folder}':");
+            Console.WriteLine($"Files processed: {result.FilesProcessed}");
+            Console.WriteLine($"Records found: {result.RecordsFound}");
+            Console.WriteLine($"Imported: {result.Imported.Count}");
+            Console.WriteLine($"Duplicate records: {result.Duplicates.Count}");
+            Console.WriteLine($"Invalid records: {result.Rejected.Count}");
+            Console.WriteLine($"Failed files: {result.FailedFiles.Count}");
+
+            if (result.FailedFiles.Count > 0)
+            {
+                Console.WriteLine("\nFailed files:");
+                foreach (var f in result.FailedFiles)
+                {
+                    Console.WriteLine($" - {f.FilePath}");
+                    foreach (var e in f.Errors) Console.WriteLine("   * " + e);
+                }
+            }
+
+            if (result.Duplicates.Count > 0)
+            {
+                Console.WriteLine("\nDuplicate records:");
+                foreach (var d in result.Duplicates)
+                {
+                    Console.WriteLine($" - ID: {d.Customer.Id}, Name: {d.Customer.Name}");
+                    foreach (var e in d.Errors) Console.WriteLine("   * " + e);
+                }
+            }
+
+            if (result.Rejected.Count > 0)
+            {
+                Console.WriteLine("\nInvalid records:");
+                foreach (var r in result.Rejected)
+                {
+                    Console.WriteLine($" - ID: {r.Customer.Id}, Name: {r.Customer.Name}");
+                    foreach (var e in r.Errors) Console.WriteLine("   * " + e);
+                }
+            }
+
+            if (result.Imported.Count > 0)
+            {
+                Console.WriteLine("\nImported records:");
+                foreach (var i in result.Imported)
+                {
+                    Console.WriteLine($" - ID: {i.Id}, Name: {i.Name}");
+                }
+            }
         }
     }
 }
