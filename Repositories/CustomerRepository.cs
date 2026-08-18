@@ -58,7 +58,7 @@ public class CustomerRepository : ICustomerRepository
     {
         using (CustomerDbContext context = new CustomerDbContext())
         {
-            Customer customer = context.Customers.Find(customerId);
+            Customer? customer = context.Customers.Find(customerId);
 
             if (customer != null)
             {

@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InfoMasterKonsole.Models;
 
-namespace InfoMasterKonsole.ViewModels
+namespace InfoMasterKonsole.ViewModels;
+
+public class CustomerViewModel
 {
-    internal class CustomerViewModels
+    public Customer Customer { get; set; }
+
+    public CustomerViewModel()
     {
+        Customer = new Customer();
+    }
+
+    public CustomerViewModel(Customer customer)
+    {
+        Customer = customer;
     }
 }

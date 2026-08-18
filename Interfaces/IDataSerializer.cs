@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InfoMasterKonsole.Models;
 
-namespace InfoMasterKonsole.Interfaces
+namespace InfoMasterKonsole.Interfaces;
+
+public interface IDataSerializer
 {
-    internal interface IDataSerializer
-    {
-    }
+    void Export(List<Customer> customers, string filePath);
+
+    List<Customer> Import(string filePath);
 }

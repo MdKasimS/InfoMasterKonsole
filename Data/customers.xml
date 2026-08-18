@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <CustomerId>1</CustomerId>
+    <CustomerName>Test Customer</CustomerName>
+    <EmailAddress>test@example.com</EmailAddress>
+    <PhoneNumber>9876543210</PhoneNumber>
+    <Address>Bangalore</Address>
+    <CustomerType>Regular</CustomerType>
+    <RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
+  </Customer>
+</ArrayOfCustomer>

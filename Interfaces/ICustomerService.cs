@@ -17,4 +17,12 @@ public interface ICustomerService
     bool DeleteCustomer(int customerId);
 
     int GetCustomerCount();
+
+    void ExportJson(string filePath);
+
+    void ExportXml(string filePath);
+
+    bool ImportJson(string filePath, out List<string> errors);
+
+    bool ImportXml(string filePath, out List<string> errors);
 }

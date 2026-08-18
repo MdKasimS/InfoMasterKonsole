@@ -1,0 +1,11 @@
+[
+  {
+    "CustomerId": 1,
+    "CustomerName": "Test Customer",
+    "EmailAddress": "test@example.com",
+    "PhoneNumber": "9876543210",
+    "Address": "Bangalore",
+    "CustomerType": "Regular",
+    "RegistrationDate": "2026-08-19T00:00:00"
+  }
+]
