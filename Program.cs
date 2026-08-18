@@ -6,7 +6,8 @@ namespace InfoMasterKonsole
     {
         private static void Main()
         {
-            Console.WriteLine("InfoMasterKonsole — Customer Data Exchange System (phase 1 skeleton).\nNo business logic implemented yet.");
+            // Start the application coordinator singleton
+            InfoMasterKonsole.Application.Application.Instance.Run();
         }
     }
 }
