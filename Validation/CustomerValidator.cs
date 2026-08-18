@@ -1,10 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InfoMasterKonsole.Interfaces;
+using InfoMasterKonsole.Models;
 
-namespace InfoMasterKonsole.Validation
+namespace InfoMasterKonsole.Validation;
+
+public class CustomerValidator
 {
-    internal class CustomerValidator
+    private ICustomerRepository repository;
+
+    public CustomerValidator(ICustomerRepository repository)
     {
+        this.repository = repository;
+    }
+
+    public bool Validate(Customer customer, out List<string> errors)
+    {
+        errors = new List<string>();
+
+        if (customer.CustomerId <= 0)
+        {
+            errors.Add("Customer ID must be greater than zero.");
+        }
+        else if (repository.Exists(customer.CustomerId))
+        {
+            errors.Add("Customer ID already exists.");
+        }
+
+        if (string.IsNullOrWhiteSpace(customer.CustomerName))
+        {
+            errors.Add("Customer name cannot be empty.");
+        }
+
+        if (string.IsNullOrWhiteSpace(customer.EmailAddress))
+        {
+            errors.Add("Email address cannot be empty.");
+        }
+
+        if (customer.RegistrationDate > DateTime.Today)
+        {
+            errors.Add("Registration date cannot be in the future.");
+        }
+
+        return errors.Count == 0;
     }
 }
