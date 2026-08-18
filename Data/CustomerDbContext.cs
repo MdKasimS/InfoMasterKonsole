@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using InfoMasterKonsole.Models;
 
-namespace InfoMasterKonsole.Data
+namespace InfoMasterKonsole.Data;
+
+public class CustomerDbContext : DbContext
 {
-    internal class CustomerDbContext
+    public DbSet<Customer> Customers { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseSqlite("Data Source=customers.db");
     }
 }
