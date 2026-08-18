@@ -23,7 +23,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public Customer GetById(int customerId)
+    public Customer? GetById(int customerId)
     {
         using (CustomerDbContext context = new CustomerDbContext())
         {

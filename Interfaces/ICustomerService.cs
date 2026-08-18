@@ -8,7 +8,7 @@ public interface ICustomerService
 
     List<Customer> GetAllCustomers();
 
-    Customer GetCustomerById(int customerId);
+    Customer? GetCustomerById(int customerId);
 
     List<Customer> SearchCustomers(string searchText);
 

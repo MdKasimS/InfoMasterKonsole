@@ -33,7 +33,7 @@ public class CustomerService : ICustomerService
         return repository.GetAll();
     }
 
-    public Customer GetCustomerById(int customerId)
+    public Customer? GetCustomerById(int customerId)
     {
         return repository.GetById(customerId);
     }

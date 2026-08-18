@@ -8,7 +8,7 @@ public interface ICustomerRepository
 
     List<Customer> GetAll();
 
-    Customer GetById(int customerId);
+    Customer? GetById(int customerId);
 
     List<Customer> Search(string searchText);
 
