@@ -1,11 +1,11 @@
 [
   {
-    "CustomerId": 1,
-    "CustomerName": "Test Customer",
-    "EmailAddress": "test@example.com",
-    "PhoneNumber": "9876543210",
-    "Address": "Bangalore",
-    "CustomerType": "Regular",
+    "CustomerId": 99,
+    "CustomerName": "Megha",
+    "EmailAddress": "megha@gmail.com",
+    "PhoneNumber": "24398203984",
+    "Address": "electronic city",
+    "CustomerType": "one",
     "RegistrationDate": "2026-08-19T00:00:00"
   }
 ]

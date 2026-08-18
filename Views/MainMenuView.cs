@@ -128,22 +128,25 @@ public class MainMenuView
 
     private void ExportData()
     {
-        Console.WriteLine();
-        Console.WriteLine("Export Customer Data - coming next.");
-        Console.ReadLine();
+        ImportExportView view =
+            new ImportExportView(service);
+
+        view.Show();
     }
 
     private void ImportData()
     {
-        Console.WriteLine();
-        Console.WriteLine("Import Customer Data - coming next.");
-        Console.ReadLine();
+        ImportExportView view =
+            new ImportExportView(service);
+
+        view.Show();
     }
 
     private void ShowSummary()
     {
-        Console.WriteLine();
-        Console.WriteLine("Customer Summary - coming next.");
-        Console.ReadLine();
+        SummaryView summaryView =
+            new SummaryView(service);
+
+        summaryView.ShowSummary();
     }
 }
