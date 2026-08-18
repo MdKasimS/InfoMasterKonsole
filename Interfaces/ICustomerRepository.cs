@@ -1,10 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InfoMasterKonsole.Models;
 
-namespace InfoMasterKonsole.Interfaces
+namespace InfoMasterKonsole.Interfaces;
+
+public interface ICustomerRepository
 {
-    internal interface ICustomerRepository
-    {
-    }
+    void Add(Customer customer);
+
+    List<Customer> GetAll();
+
+    Customer GetById(int customerId);
+
+    List<Customer> Search(string searchText);
+
+    void Update(Customer customer);
+
+    void Delete(int customerId);
+
+    bool Exists(int customerId);
+
+    int Count();
 }
