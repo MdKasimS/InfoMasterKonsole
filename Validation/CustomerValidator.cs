@@ -12,7 +12,10 @@ public class CustomerValidator
         this.repository = repository;
     }
 
-    public bool Validate(Customer customer, out List<string> errors)
+    public bool Validate(
+        Customer customer,
+        bool isUpdate,
+        out List<string> errors)
     {
         errors = new List<string>();
 
@@ -20,7 +23,7 @@ public class CustomerValidator
         {
             errors.Add("Customer ID must be greater than zero.");
         }
-        else if (repository.Exists(customer.CustomerId))
+        else if (!isUpdate && repository.Exists(customer.CustomerId))
         {
             errors.Add("Customer ID already exists.");
         }
