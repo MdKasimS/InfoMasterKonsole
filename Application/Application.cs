@@ -55,6 +55,7 @@ namespace InfoMasterKonsole.Application
         private readonly ExportView _exportView;
         private readonly ImportView _importView;
         private readonly SummaryView _summaryView;
+        private readonly Views.MainMenuView _mainMenuView;
 
         private Application()
         {
@@ -86,54 +87,13 @@ namespace InfoMasterKonsole.Application
             _exportView = new ExportView(_service, _jsonSerializer, _xmlSerializer);
             _importView = new ImportView(_service, _jsonSerializer, _xmlSerializer);
             _summaryView = new SummaryView(_summaryViewModel);
+
+            _mainMenuView = new Views.MainMenuView(_customerView, _importView, _exportView, _searchView, _summaryView);
         }
 
         public void Run()
         {
-            while (true)
-            {
-                Console.WriteLine("\nInfoMasterKonsole - Customer Data Exchange System");
-                Console.WriteLine("1) Customer Management");
-                Console.WriteLine("2) Search");
-                Console.WriteLine("3) Import");
-                Console.WriteLine("4) Export");
-                Console.WriteLine("5) Summary / Statistics");
-                Console.WriteLine("0) Exit");
-                Console.Write("Select option: ");
-                var choice = Console.ReadLine();
-
-                try
-                {
-                    switch (choice)
-                    {
-                        case "1":
-                            _customerView.Show();
-                            break;
-                        case "2":
-                            _searchView.Show();
-                            break;
-                        case "3":
-                            _importView.Show();
-                            break;
-                        case "4":
-                            _exportView.Show();
-                            break;
-                        case "5":
-                            _summaryView.Show();
-                            break;
-                        case "0":
-                            Console.WriteLine("Exiting application.");
-                            return;
-                        default:
-                            Console.WriteLine("Invalid option. Please try again.");
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An unexpected error occurred: {ex.Message}");
-                }
-            }
+            _mainMenuView.Show();
         }
     }
 }

@@ -3,13 +3,67 @@ using System;
 namespace InfoMasterKonsole.Views
 {
     /// <summary>
-    /// Placeholder main menu view. No navigation or business logic in Phase 1.
+    /// Top-level console menu that delegates to child views.
     /// </summary>
-    public class MainMenuView : IView
+    public class MainMenuView
     {
+        private readonly CustomerView _customerView;
+        private readonly ImportView _importView;
+        private readonly ExportView _exportView;
+        private readonly SearchView _searchView;
+        private readonly SummaryView _summaryView;
+
+        public MainMenuView(CustomerView customerView, ImportView importView, ExportView exportView, SearchView searchView, SummaryView summaryView)
+        {
+            _customerView = customerView ?? throw new ArgumentNullException(nameof(customerView));
+            _importView = importView ?? throw new ArgumentNullException(nameof(importView));
+            _exportView = exportView ?? throw new ArgumentNullException(nameof(exportView));
+            _searchView = searchView ?? throw new ArgumentNullException(nameof(searchView));
+            _summaryView = summaryView ?? throw new ArgumentNullException(nameof(summaryView));
+        }
+
         public void Show()
         {
-            Console.WriteLine("Main menu placeholder. Phase 1 provides structure only.");
+            while (true)
+            {
+                Console.WriteLine("\n========================================");
+                Console.WriteLine("      CUSTOMER DATA EXCHANGE SYSTEM");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1) Customer Management");
+                Console.WriteLine("2) Import Data");
+                Console.WriteLine("3) Export Data");
+                Console.WriteLine("4) Search Customers");
+                Console.WriteLine("5) Customer Summary");
+                Console.WriteLine("6) Exit");
+                Console.Write("Select option: ");
+                var choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        _customerView.Show();
+                        break;
+                    case "2":
+                        _importView.Show();
+                        break;
+                    case "3":
+                        _exportView.Show();
+                        break;
+                    case "4":
+                        _searchView.Show();
+                        break;
+                    case "5":
+                        _summaryView.Show();
+                        break;
+                    case "6":
+                    case "0":
+                        Console.WriteLine("Exiting application.");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
         }
     }
 }
