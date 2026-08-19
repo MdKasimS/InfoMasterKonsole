@@ -1,1 +1,5 @@
-﻿Console.WriteLine("Hello, World!");
+﻿
+using InfoMasterKonsole.ViewModels;
+
+CustomerViewModel viewModel = new CustomerViewModel();
+viewModel.Run();

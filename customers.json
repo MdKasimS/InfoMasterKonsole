@@ -1,0 +1,30 @@
+[
+  {
+    "CustomerId": 1,
+    "CustomerName": "Hanna",
+    "Email": "hanna@gmail.com",
+    "PhoneNumber": "0000000",
+    "Address": "Bangalore",
+    "CustomerType": "Business",
+    "RegistrationDate": "2026-05-31T00:00:00"
+  },
+  {
+    "CustomerId": 2,
+    "CustomerName": "Angela",
+    "Email": "angela@gmail.com",
+    "PhoneNumber": "1111111",
+    "Address": "Kerala",
+    "CustomerType": "Personal",
+    "RegistrationDate": "2026-07-02T00:00:00"
+  },
+  {
+    "CustomerId": 3,
+    "CustomerName": "Jincy",
+    "Email": "jincy@gmail.com",
+    "PhoneNumber": "8734567",
+    "Address": "Kerala",
+    "CustomerType": "Personal",
+    "RegistrationDate": "2026-08-15T00:00:00"
+  }
+
+]
