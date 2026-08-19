@@ -52,9 +52,7 @@ public class CustomerRepository : ICustomerRepository
 
     public void Update(Customer customer)
     {
-        Customer existing =
-            context.Customers.Find(
-                customer.CustomerId);
+        Customer existing = context.Customers.Find(customer.CustomerId);
 
         if (existing == null)
         {
