@@ -1,5 +1,5 @@
 ﻿using InfoMasterKonsole.Interfaces;
-using InfoMasterKonsole.Models;
+using InfoMasterKonsole.ViewModels;
 
 namespace InfoMasterKonsole.Views;
 
@@ -21,49 +21,23 @@ public class SummaryView
         Console.WriteLine("========================================");
         Console.WriteLine();
 
+        SummaryViewModel viewModel = new SummaryViewModel(service);
+
         try
         {
-            List<Customer> customers =
-                service.GetAllCustomers();
-
-            int totalCustomers = customers.Count;
-            int regularCustomers = 0;
-            int premiumCustomers = 0;
-            int otherCustomers = 0;
-
-            foreach (Customer customer in customers)
-            {
-                if (customer.CustomerType
-                    .Equals(
-                        "Regular",
-                        StringComparison.OrdinalIgnoreCase))
-                {
-                    regularCustomers++;
-                }
-                else if (customer.CustomerType
-                    .Equals(
-                        "Premium",
-                        StringComparison.OrdinalIgnoreCase))
-                {
-                    premiumCustomers++;
-                }
-                else
-                {
-                    otherCustomers++;
-                }
-            }
+            viewModel.Load();
 
             Console.WriteLine(
-                "Total Customers   : " + totalCustomers);
+                "Total Customers   : " + viewModel.TotalCustomers);
 
             Console.WriteLine(
-                "Regular Customers : " + regularCustomers);
+                "Regular Customers : " + viewModel.RegularCustomers);
 
             Console.WriteLine(
-                "Premium Customers : " + premiumCustomers);
+                "Premium Customers : " + viewModel.PremiumCustomers);
 
             Console.WriteLine(
-                "Other Types       : " + otherCustomers);
+                "Other Types       : " + viewModel.OtherCustomers);
         }
         catch (Exception exception)
         {

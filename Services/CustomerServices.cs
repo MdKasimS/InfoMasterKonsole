@@ -99,9 +99,11 @@ public class CustomerService : ICustomerService
 
     public bool ImportJson(
     string filePath,
-    out List<string> errors)
+    out List<string> errors,
+    out List<string> skippedMessages)
     {
         errors = new List<string>();
+        skippedMessages = new List<string>();
 
         List<Customer> customers;
 
@@ -120,27 +122,18 @@ public class CustomerService : ICustomerService
             return false;
         }
 
-        foreach (Customer customer in customers)
-        {
-            if (!validator.ValidateImportedCustomer(
-                customer,
-                out List<string> customerErrors))
-            {
-                errors.AddRange(customerErrors);
-                continue;
-            }
-
-            repository.Add(customer);
-        }
+        ImportCustomers(customers, errors, skippedMessages);
 
         return errors.Count == 0;
     }
 
     public bool ImportXml(
         string filePath,
-        out List<string> errors)
+        out List<string> errors,
+        out List<string> skippedMessages)
     {
         errors = new List<string>();
+        skippedMessages = new List<string>();
 
         List<Customer> customers;
 
@@ -159,8 +152,31 @@ public class CustomerService : ICustomerService
             return false;
         }
 
+        ImportCustomers(customers, errors, skippedMessages);
+
+        return errors.Count == 0;
+    }
+
+    // Shared by ImportJson and ImportXml. For each customer read from
+    // the file: an ID that already exists in the database is treated
+    // as a skip (not an error), invalid field values are treated as
+    // an error, and everything else gets added to the repository.
+    private void ImportCustomers(
+        List<Customer> customers,
+        List<string> errors,
+        List<string> skippedMessages)
+    {
         foreach (Customer customer in customers)
         {
+            if (repository.Exists(customer.CustomerId))
+            {
+                skippedMessages.Add(
+                    "Customer ID " + customer.CustomerId +
+                    " already exists - skipped.");
+
+                continue;
+            }
+
             if (!validator.ValidateImportedCustomer(
                 customer,
                 out List<string> customerErrors))
@@ -171,14 +187,12 @@ public class CustomerService : ICustomerService
 
             repository.Add(customer);
         }
-
-        return errors.Count == 0;
     }
-    
 
-    
 
-    
+
+
+
 
 
 }

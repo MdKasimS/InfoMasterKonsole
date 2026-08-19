@@ -7,5 +7,50 @@
     "Address": "electronic city",
     "CustomerType": "one",
     "RegistrationDate": "2026-08-19T00:00:00"
+  },
+  {
+    "CustomerId": 99,
+    "CustomerName": "Megha",
+    "EmailAddress": "megha@gmail.com",
+    "PhoneNumber": "24398203984",
+    "Address": "electronic city",
+    "CustomerType": "one",
+    "RegistrationDate": "2026-08-19T00:00:00"
+  },
+  {
+    "CustomerId": 101,
+    "CustomerName": "megha",
+    "EmailAddress": "megha@gamil.com",
+    "PhoneNumber": "30948503",
+    "Address": "bangalore",
+    "CustomerType": "premium",
+    "RegistrationDate": "2026-08-19T00:00:00"
+  },
+  {
+    "CustomerId": 102,
+    "CustomerName": "two",
+    "EmailAddress": "two@gamil.com",
+    "PhoneNumber": "3452345",
+    "Address": "whitefiled",
+    "CustomerType": "premium",
+    "RegistrationDate": "2026-08-19T00:00:00"
+  },
+  {
+    "CustomerId": 103,
+    "CustomerName": "three",
+    "EmailAddress": "two@gamil.com",
+    "PhoneNumber": "345245645345",
+    "Address": "whitefiledasrdfras",
+    "CustomerType": "premium",
+    "RegistrationDate": "2026-08-19T00:00:00"
+  },
+  {
+    "CustomerId": 955,
+    "CustomerName": "Mesdgfgha",
+    "EmailAddress": "meghstga@gmail.com",
+    "PhoneNumber": "24398serg203984",
+    "Address": "electronergic city",
+    "CustomerType": "onee",
+    "RegistrationDate": "2026-08-19T00:00:00"
   }
 ]

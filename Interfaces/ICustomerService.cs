@@ -22,7 +22,13 @@ public interface ICustomerService
 
     void ExportXml(string filePath);
 
-    bool ImportJson(string filePath, out List<string> errors);
+    bool ImportJson(
+    string filePath,
+    out List<string> errors,
+    out List<string> skippedMessages);
 
-    bool ImportXml(string filePath, out List<string> errors);
+    bool ImportXml(
+        string filePath,
+        out List<string> errors,
+        out List<string> skippedMessages);
 }

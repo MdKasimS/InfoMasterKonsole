@@ -1,4 +1,5 @@
 ﻿using InfoMasterKonsole.Interfaces;
+using InfoMasterKonsole.ViewModels;
 
 namespace InfoMasterKonsole.Views;
 
@@ -66,9 +67,11 @@ public class ImportExportView
 
     private void ExportJson()
     {
+        ImportExportViewModel viewModel = new ImportExportViewModel(service);
+
         try
         {
-            service.ExportJson("Data/customers.json");
+            viewModel.ExportJson();
 
             Console.WriteLine();
             Console.WriteLine(
@@ -90,9 +93,11 @@ public class ImportExportView
 
     private void ExportXml()
     {
+        ImportExportViewModel viewModel = new ImportExportViewModel(service);
+
         try
         {
-            service.ExportXml("Data/customers.xml");
+            viewModel.ExportXml();
 
             Console.WriteLine();
             Console.WriteLine(
@@ -114,18 +119,15 @@ public class ImportExportView
 
     private void ImportJson()
     {
+        ImportExportViewModel viewModel = new ImportExportViewModel(service);
+
         try
         {
-            List<string> errors;
-
-            bool success =
-                service.ImportJson(
-                    "Data/customers.json",
-                    out errors);
+            viewModel.ImportJson();
 
             Console.WriteLine();
 
-            if (success)
+            if (viewModel.IsSuccess)
             {
                 Console.WriteLine(
                     "Customer data imported from JSON successfully.");
@@ -135,9 +137,20 @@ public class ImportExportView
                 Console.WriteLine(
                     "JSON import completed with errors.");
 
-                foreach (string error in errors)
+                foreach (string error in viewModel.ErrorMessages)
                 {
                     Console.WriteLine("- " + error);
+                }
+            }
+
+            if (viewModel.SkippedMessages.Count > 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Skipped records:");
+
+                foreach (string skipped in viewModel.SkippedMessages)
+                {
+                    Console.WriteLine("- " + skipped);
                 }
             }
         }
@@ -157,18 +170,15 @@ public class ImportExportView
 
     private void ImportXml()
     {
+        ImportExportViewModel viewModel = new ImportExportViewModel(service);
+
         try
         {
-            List<string> errors;
-
-            bool success =
-                service.ImportXml(
-                    "Data/customers.xml",
-                    out errors);
+            viewModel.ImportXml();
 
             Console.WriteLine();
 
-            if (success)
+            if (viewModel.IsSuccess)
             {
                 Console.WriteLine(
                     "Customer data imported from XML successfully.");
@@ -178,9 +188,20 @@ public class ImportExportView
                 Console.WriteLine(
                     "XML import completed with errors.");
 
-                foreach (string error in errors)
+                foreach (string error in viewModel.ErrorMessages)
                 {
                     Console.WriteLine("- " + error);
+                }
+            }
+
+            if (viewModel.SkippedMessages.Count > 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Skipped records:");
+
+                foreach (string skipped in viewModel.SkippedMessages)
+                {
+                    Console.WriteLine("- " + skipped);
                 }
             }
         }

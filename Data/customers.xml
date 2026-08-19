@@ -9,4 +9,40 @@
     <CustomerType>one</CustomerType>
     <RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
   </Customer>
+  <Customer>
+    <CustomerId>99</CustomerId>
+    <CustomerName>Megha</CustomerName>
+    <EmailAddress>megha@gmail.com</EmailAddress>
+    <PhoneNumber>24398203984</PhoneNumber>
+    <Address>electronic city</Address>
+    <CustomerType>one</CustomerType>
+    <RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
+  </Customer>
+  <Customer>
+    <CustomerId>101</CustomerId>
+    <CustomerName>megha</CustomerName>
+    <EmailAddress>megha@gamil.com</EmailAddress>
+    <PhoneNumber>30948503</PhoneNumber>
+    <Address>bangalore</Address>
+    <CustomerType>premium</CustomerType>
+    <RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
+  </Customer>
+  <Customer>
+    <CustomerId>102</CustomerId>
+    <CustomerName>two</CustomerName>
+    <EmailAddress>two@gamil.com</EmailAddress>
+    <PhoneNumber>3452345</PhoneNumber>
+    <Address>whitefiled</Address>
+    <CustomerType>premium</CustomerType>
+    <RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
+  </Customer>
+	<Customer>
+		<CustomerId>955</CustomerId>
+		<CustomerName>Mesdgfgha</CustomerName>
+		<EmailAddress>meghstga@gmail.com</EmailAddress>
+		<PhoneNumber>24398serg203984</PhoneNumber>
+		<Address>electronergic city</Address>
+		<CustomerType>onee</CustomerType>
+		<RegistrationDate>2026-08-19T00:00:00</RegistrationDate>
+	</Customer>
 </ArrayOfCustomer>
