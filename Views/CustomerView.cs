@@ -32,7 +32,7 @@ namespace InfoMasterKonsole.Views
         {
             while (true)
             {
-                Console.WriteLine("\nCustomer Management");
+                ScreenHelper.ShowTitle("Customer Management");
                 Console.WriteLine("1) Add Customer");
                 Console.WriteLine("2) View All Customers");
                 Console.WriteLine("3) Update Customer");
@@ -47,24 +47,31 @@ namespace InfoMasterKonsole.Views
                     switch (choice)
                     {
                         case "1":
+                            Console.Clear();
                             AddCustomerFlow();
                             break;
                         case "2":
+                            Console.Clear();
                             ViewAllFlow();
                             break;
                         case "3":
+                            Console.Clear();
                             UpdateCustomerFlow();
                             break;
                         case "4":
+                            Console.Clear();
                             DeleteCustomerFlow();
                             break;
                         case "5":
+                            Console.Clear();
                             SearchCustomersFlow();
                             break;
                         case "0":
+                            Console.Clear();
                             return; // exit the view
                         default:
                             Console.WriteLine("Invalid option. Please try again.");
+                            ScreenHelper.PauseAndClear();
                             break;
                     }
                 }
@@ -72,6 +79,7 @@ namespace InfoMasterKonsole.Views
                 {
                     InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                     Console.WriteLine("An unexpected error occurred. See logs for details.");
+                    ScreenHelper.PauseAndClear();
                 }
             }
         }
@@ -80,25 +88,29 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                Console.WriteLine("Add Customer");
+                Console.WriteLine(new string('-', 20));
                 var customer = _customerForm.CreateCustomerFromConsole();
                 var result = _customerViewModel.AddCustomer(customer);
                 if (result.IsSuccess)
                 {
-                    Console.WriteLine("Customer added successfully.");
+                    Console.WriteLine("\nCustomer added successfully.");
                 }
                 else
                 {
-                    Console.WriteLine("Failed to add customer:");
+                    Console.WriteLine("\nFailed to add customer:");
                     foreach (var err in result.Errors)
                     {
                         Console.WriteLine(" - " + err);
                     }
                 }
+                ScreenHelper.PauseAndClear();
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("Error adding customer. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
 
@@ -106,13 +118,17 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                Console.WriteLine("All Customers");
+                Console.WriteLine(new string('-', 20));
                 var customers = _customerViewModel.GetAllCustomers();
                 PrintCustomers(customers);
+                ScreenHelper.PauseAndClear();
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("Error retrieving customers. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
 
@@ -120,11 +136,14 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                Console.WriteLine("Update Customer");
+                Console.WriteLine(new string('-', 20));
                 Console.Write("Enter Customer ID to update: ");
                 var id = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     Console.WriteLine("Customer ID is required.");
+                    ScreenHelper.PauseAndClear();
                     return;
                 }
 
@@ -132,6 +151,7 @@ namespace InfoMasterKonsole.Views
                 if (existing == null)
                 {
                     Console.WriteLine("Customer not found.");
+                    ScreenHelper.PauseAndClear();
                     return;
                 }
 
@@ -140,6 +160,7 @@ namespace InfoMasterKonsole.Views
                 if (result.IsSuccess)
                 {
                     Console.WriteLine("Customer updated successfully.");
+                    ScreenHelper.PauseAndClear();
                 }
                 else
                 {
@@ -148,12 +169,14 @@ namespace InfoMasterKonsole.Views
                     {
                         Console.WriteLine(" - " + err);
                     }
+                    ScreenHelper.PauseAndClear();
                 }
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("Error updating customer. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
 
@@ -161,11 +184,14 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                Console.WriteLine("Delete Customer");
+                Console.WriteLine(new string('-', 20));
                 Console.Write("Enter Customer ID to delete: ");
                 var id = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     Console.WriteLine("Customer ID is required.");
+                    ScreenHelper.PauseAndClear();
                     return;
                 }
 
@@ -184,6 +210,7 @@ namespace InfoMasterKonsole.Views
                     if (result.IsSuccess)
                     {
                         Console.WriteLine("Customer deleted successfully.");
+                        ScreenHelper.PauseAndClear();
                     }
                     else
                     {
@@ -192,17 +219,20 @@ namespace InfoMasterKonsole.Views
                         {
                             Console.WriteLine(" - " + err);
                         }
+                        ScreenHelper.PauseAndClear();
                     }
                 }
                 else
                 {
                     Console.WriteLine("Delete cancelled.");
+                    ScreenHelper.PauseAndClear();
                 }
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("Error deleting customer. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
 
@@ -210,14 +240,18 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                Console.WriteLine("Search Customers");
+                Console.WriteLine(new string('-', 20));
                 var (criterion, value) = _searchForm.CollectSearchCriteria();
                 var results = _searchViewModel.Search(criterion, value);
                 PrintCustomers(results);
+                ScreenHelper.PauseAndClear();
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("Error searching customers. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
 

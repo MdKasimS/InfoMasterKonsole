@@ -24,21 +24,28 @@ namespace InfoMasterKonsole.Views
         {
             while (true)
             {
-                Console.WriteLine("\nSearch Customers");
+                ScreenHelper.ShowTitle("Search Customers");
                 Console.WriteLine("1) Search");
                 Console.WriteLine("0) Back");
                 Console.Write("Select option: ");
                 var choice = Console.ReadLine();
 
-                if (choice == "0") return;
+                if (choice == "0")
+                {
+                    Console.Clear();
+                    return;
+                }
 
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         ExecuteSearch();
+                        ScreenHelper.PauseAndClear();
                         break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
+                        ScreenHelper.PauseAndClear();
                         break;
                 }
             }

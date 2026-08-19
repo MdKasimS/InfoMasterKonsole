@@ -25,25 +25,34 @@ namespace InfoMasterKonsole.Views
         {
             while (true)
             {
-                Console.WriteLine("\nExport Customers");
+                ScreenHelper.ShowTitle("Export Customers");
                 Console.WriteLine("1) Export to JSON");
                 Console.WriteLine("2) Export to XML");
                 Console.WriteLine("0) Back");
                 Console.Write("Select option: ");
                 var choice = Console.ReadLine();
 
-                if (choice == "0") return;
+                if (choice == "0")
+                {
+                    Console.Clear();
+                    return;
+                }
 
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         ExportJsonFlow();
+                        ScreenHelper.PauseAndClear();
                         break;
                     case "2":
+                        Console.Clear();
                         ExportXmlFlow();
+                        ScreenHelper.PauseAndClear();
                         break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
+                        ScreenHelper.PauseAndClear();
                         break;
                 }
             }
@@ -58,6 +67,8 @@ namespace InfoMasterKonsole.Views
 
             var vm = new ExportViewModel(_service, _jsonSerializer);
             var outcome = vm.ExportAll(path);
+            Console.WriteLine("Export to JSON");
+            Console.WriteLine(new string('-', 20));
             DisplayOutcome(outcome, path, "JSON");
         }
 
@@ -70,6 +81,8 @@ namespace InfoMasterKonsole.Views
 
             var vm = new ExportViewModel(_service, _xmlSerializer);
             var outcome = vm.ExportAll(path);
+            Console.WriteLine("Export to XML");
+            Console.WriteLine(new string('-', 20));
             DisplayOutcome(outcome, path, "XML");
         }
 
@@ -101,7 +114,7 @@ namespace InfoMasterKonsole.Views
             var dataDir = Path.Combine(baseDir, "data", "exports");
             if (!Directory.Exists(dataDir))
             {
-                try { Directory.CreateDirectory(dataDir); } catch { }
+                try { Directory.CreateDirectory(dataDir); } catch (Exception ex) { InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex); }
             }
             return Path.Combine(dataDir, fileName);
         }

@@ -19,7 +19,6 @@ namespace InfoMasterKonsole.Views
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _jsonSerializer = jsonSerializer ?? throw new ArgumentNullException(nameof(jsonSerializer));
-            _xml_serializer: // placeholder
             _xmlSerializer = xmlSerializer ?? throw new ArgumentNullException(nameof(xmlSerializer));
         }
 
@@ -27,7 +26,7 @@ namespace InfoMasterKonsole.Views
         {
             while (true)
             {
-                Console.WriteLine("\nImport Customers");
+                ScreenHelper.ShowTitle("Import Customers");
                 Console.WriteLine("1) Import from JSON");
                 Console.WriteLine("2) Import from XML");
                 Console.WriteLine("3) Import multiple JSON files from folder");
@@ -35,21 +34,32 @@ namespace InfoMasterKonsole.Views
                 Console.Write("Select option: ");
                 var choice = Console.ReadLine();
 
-                if (choice == "0") return;
+                if (choice == "0")
+                {
+                    Console.Clear();
+                    return;
+                }
 
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         ImportJsonFlow();
+                        ScreenHelper.PauseAndClear();
                         break;
                     case "2":
+                        Console.Clear();
                         ImportXmlFlow();
+                        ScreenHelper.PauseAndClear();
                         break;
                     case "3":
+                        Console.Clear();
                         ImportMultipleJsonFlow();
+                        ScreenHelper.PauseAndClear();
                         break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
+                        ScreenHelper.PauseAndClear();
                         break;
                 }
             }
@@ -150,7 +160,7 @@ namespace InfoMasterKonsole.Views
             var dataDir = Path.Combine(baseDir, "data", "imports");
             if (!Directory.Exists(dataDir))
             {
-                try { Directory.CreateDirectory(dataDir); } catch { }
+                try { Directory.CreateDirectory(dataDir); } catch (Exception ex) { InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex); }
             }
             return Path.Combine(dataDir, fileName);
         }
@@ -161,7 +171,7 @@ namespace InfoMasterKonsole.Views
             var dataDir = Path.Combine(baseDir, "data", "imports");
             if (!Directory.Exists(dataDir))
             {
-                try { Directory.CreateDirectory(dataDir); } catch { }
+                try { Directory.CreateDirectory(dataDir); } catch (Exception ex) { InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex); }
             }
             return dataDir;
         }

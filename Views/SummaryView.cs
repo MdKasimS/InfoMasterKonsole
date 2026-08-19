@@ -16,10 +16,8 @@ namespace InfoMasterKonsole.Views
         {
             try
             {
+                ScreenHelper.ShowTitle("Customer Summary/Statistics");
                 var summary = _viewModel.GetSummary();
-
-                Console.WriteLine("\nCustomer Summary/Statistics");
-                Console.WriteLine("----------------------------");
 
                 Console.WriteLine($"Total customers: {summary.TotalCustomers}");
 
@@ -56,11 +54,13 @@ namespace InfoMasterKonsole.Views
                 }
 
                 Console.WriteLine("----------------------------");
+                ScreenHelper.PauseAndClear();
             }
             catch (Exception ex)
             {
                 InfoMasterKonsole.Exceptions.ExceptionLogger.Log(ex);
                 Console.WriteLine("An error occurred while generating the summary. See logs for details.");
+                ScreenHelper.PauseAndClear();
             }
         }
     }

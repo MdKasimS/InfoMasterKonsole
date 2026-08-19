@@ -26,9 +26,7 @@ namespace InfoMasterKonsole.Views
         {
             while (true)
             {
-                Console.WriteLine("\n========================================");
-                Console.WriteLine("      CUSTOMER DATA EXCHANGE SYSTEM");
-                Console.WriteLine("========================================");
+                ScreenHelper.ShowTitle("CUSTOMER DATA EXCHANGE SYSTEM");
                 Console.WriteLine("1) Customer Management");
                 Console.WriteLine("2) Import Data");
                 Console.WriteLine("3) Export Data");
@@ -41,26 +39,33 @@ namespace InfoMasterKonsole.Views
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         _customerView.Show();
                         break;
                     case "2":
+                        Console.Clear();
                         _importView.Show();
                         break;
                     case "3":
+                        Console.Clear();
                         _exportView.Show();
                         break;
                     case "4":
+                        Console.Clear();
                         _searchView.Show();
                         break;
                     case "5":
+                        Console.Clear();
                         _summaryView.Show();
                         break;
                     case "6":
                     case "0":
+                        Console.Clear();
                         Console.WriteLine("Exiting application.");
                         return;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
+                        ScreenHelper.PauseAndClear();
                         break;
                 }
             }
