@@ -20,14 +20,31 @@ public class JsonDataSerializer : IDataSerializer
 
     public List<Customer> Import(string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException(
+                "The JSON file was not found.");
+        }
+
         string json = File.ReadAllText(filePath);
 
-        List<Customer>? customers =
-            JsonSerializer.Deserialize<List<Customer>>(json);
+        List<Customer>? customers;
+
+        try
+        {
+            customers =
+                JsonSerializer.Deserialize<List<Customer>>(json);
+        }
+        catch (JsonException)
+        {
+            throw new FormatException(
+                "The JSON file has an invalid structure.");
+        }
 
         if (customers == null)
         {
-            return new List<Customer>();
+            throw new FormatException(
+                "The JSON file does not contain valid customer data.");
         }
 
         return customers;

@@ -109,10 +109,14 @@ public class CustomerService : ICustomerService
         {
             customers = jsonSerializer.Import(filePath);
         }
-        catch (Exception)
+        catch (FileNotFoundException exception)
         {
-            errors.Add(
-                "The JSON file is invalid or could not be read.");
+            errors.Add(exception.Message);
+            return false;
+        }
+        catch (FormatException exception)
+        {
+            errors.Add(exception.Message);
             return false;
         }
 
@@ -144,10 +148,14 @@ public class CustomerService : ICustomerService
         {
             customers = xmlSerializer.Import(filePath);
         }
-        catch (Exception)
+        catch (FileNotFoundException exception)
         {
-            errors.Add(
-                "The XML file is invalid or could not be read.");
+            errors.Add(exception.Message);
+            return false;
+        }
+        catch (FormatException exception)
+        {
+            errors.Add(exception.Message);
             return false;
         }
 

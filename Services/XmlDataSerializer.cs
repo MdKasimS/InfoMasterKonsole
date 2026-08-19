@@ -20,21 +20,37 @@ public class XmlDataSerializer : IDataSerializer
 
     public List<Customer> Import(string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException(
+                "The XML file was not found.");
+        }
+
         XmlSerializer serializer =
             new XmlSerializer(typeof(List<Customer>));
 
-        using (FileStream stream =
-            new FileStream(filePath, FileMode.Open))
+        try
         {
-            List<Customer>? customers =
-                serializer.Deserialize(stream) as List<Customer>;
-
-            if (customers == null)
+            using (FileStream stream =
+                new FileStream(filePath, FileMode.Open))
             {
-                return new List<Customer>();
-            }
+                List<Customer>? customers =
+                    serializer.Deserialize(stream)
+                    as List<Customer>;
 
-            return customers;
+                if (customers == null)
+                {
+                    throw new FormatException(
+                        "The XML file does not contain valid customer data.");
+                }
+
+                return customers;
+            }
+        }
+        catch (InvalidOperationException)
+        {
+            throw new FormatException(
+                "The XML file has an invalid structure.");
         }
     }
 }
